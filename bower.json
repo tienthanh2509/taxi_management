@@ -1,0 +1,36 @@
+{
+  "name": "d13ht01",
+  "version": "0.0.1",
+  "description": "D13HT01_CodeIgniter_Base",
+  "main": "index.php",
+  "keywords": [
+    "d13ht01",
+    "codeigniter"
+  ],
+  "authors": [
+	"Đoàn Hoàng Huy",
+	"Nguyễn Thái Sơn",
+    "Phạm Tiến Thành",
+    "Hồ Thanh Thúy",
+    "Nguyen Thanh Van"
+  ],
+  "license": "MIT",
+  "homepage": "http://d13ht01.tk",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "font-awesome": "~4.4.0",
+    "jquery": "~2.1.4"
+  },
+  "resolutions": {
+    "jquery": ">= 1.9.1",
+    "bootstrap": "~3.3.5"
+  }
+}
