@@ -8,8 +8,8 @@
     "codeigniter"
   ],
   "authors": [
-	"Đoàn Hoàng Huy",
-	"Nguyễn Thái Sơn",
+    "Đoàn Hoàng Huy",
+    "Nguyễn Thái Sơn",
     "Phạm Tiến Thành",
     "Hồ Thanh Thúy",
     "Nguyen Thanh Van"
@@ -27,7 +27,8 @@
   "dependencies": {
     "bootstrap": "~3.3.5",
     "font-awesome": "~4.4.0",
-    "jquery": "~2.1.4"
+    "jquery": "~2.1.4",
+    "bootswatch": "~3.3.5+4"
   },
   "resolutions": {
     "jquery": ">= 1.9.1",
