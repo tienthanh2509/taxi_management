@@ -1,0 +1,97 @@
+{#
+Chương trình quản lý Taxi
+Thiết kế bởi nhóm 1 lớp D13HT01
+Bao gồm các thành viên
+Hoàng Huy, Thái Sơn, Tiến Thành, Thanh Thúy, Thanh Vân
+#}
+
+{# Master Page #}
+{% extends 'master_page/masterpage_home.html' %}
+
+{# Nội dung trang #}
+{% block body_content %}
+<div class="container">
+	<div class="jumbotron">
+		<h1>Xin chào!</h1>
+		<p>Phần mềm hỗ trợ quản lý dịch vụ TAXI v1.0</p>
+		<p>D's TAXI đang cải tiến phương thức di chuyển hiện đại.
+		Bằng cách kết nối giữa hành khách và tài xế, ứng dụng của chúng tôi khiến việc đi lại dễ dàng hơn,
+		hành khách gọi xe tiện lợi hơn và tài xế có thêm nhiều công việc hơn.</p>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">Nhóm sáng lập viên</div>
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-offset-1 col-md-3">
+					<div class="media">
+						<div class="media-left">
+							<a href="#">
+								<img class="media-object img-circle" src="{{ base_url('assets/images/author/huy.jpg') }}" alt="Đoàn Hoàng Huy" width="128" height="128">
+							</a>
+						</div>
+						<div class="media-body">
+							<h4 class="media-heading">Heo Hư Hỏng</h4>
+						</div>
+					</div>
+					<div class="media">
+						<div class="media-body text-right">
+							<h4 class="media-heading">Cáo Con</h4>
+						</div>
+						<div class="media-right">
+							<a href="#">
+								<img class="media-object img-circle" src="{{ base_url('assets/images/author/son.jpg') }}" alt="Nguyễn Thái Sơn" width="128" height="128">
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="media">
+						<div class="media-left">
+							<a href="#">
+								<img class="media-object img-circle" src="{{ base_url('assets/images/author/thanh.jpg') }}" alt="Phạm Tiến Thành" width="128" height="128">
+							</a>
+						</div>
+						<div class="media-body">
+							<h4 class="media-heading">Roronoa Zoro</h4>
+						</div>
+					</div>
+					<div class="media">
+						<div class="media-body text-right">
+							<h4 class="media-heading">Hyo Chul</h4>
+						</div>
+						<div class="media-right">
+							<a href="#">
+								<img class="media-object img-circle" src="{{ base_url('assets/images/author/thuy.jpg') }}" alt="Hồ Thanh Thúy" width="128" height="128">
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="media">
+						<div class="media-left">
+							<a href="#">
+								<img class="media-object img-circle" src="{{ base_url('assets/images/author/van.jpg') }}" alt="Nguyễn Thanh Vân" width="128" height="128">
+							</a>
+						</div>
+						<div class="media-body">
+							<h4 class="media-heading">Vân Mi</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block footer %}{{ parent() }}
+<script>
+$(function () {
+	// Cập nhật Navbar
+	var navbar_id = 'about';
+	$('#ci_navbar_home').removeClass('active');
+	$('#ci_navbar_' + navbar_id).addClass('active');
+});
+
+</script>
+{% endblock %}

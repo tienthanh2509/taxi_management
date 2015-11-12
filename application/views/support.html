@@ -1,0 +1,67 @@
+{#
+Chương trình quản lý Taxi
+Thiết kế bởi nhóm 1 lớp D13HT01
+Bao gồm các thành viên
+Hoàng Huy, Thái Sơn, Tiến Thành, Thanh Thúy, Thanh Vân
+#}
+
+{# Master Page #}
+{% extends 'master_page/masterpage_home.html' %}
+
+{# Nội dung trang #}
+{% block body_content %}
+<div class="container">
+	<div class="jumbotron">
+		<h1>Bạn có thắc mắc?!</h1>
+		<p>Hãy xem qua các câu hỏi thường gặp</p>
+		<p><a class="btn btn-primary btn-lg" href="#" role="button"><i class="fa fa-question-circle"></i> Câu hỏi thường gặp</a></p>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">Chủ đề</h3>
+				</div>
+				<div class="panel-body">
+					Tổng hợp các câu hỏi &amp; câu trả lời từ các khách hàng và các nhân viên hỗ trợ.
+				</div>
+				<!-- chuyên mục -->
+				<ul class="list-group">
+					<li class="list-group-item">Chung <span class="badge">4</span></li>
+					<li class="list-group-item">Khuyến mãi <span class="badge">3</span></li>
+					<li class="list-group-item">Khiếu nại <span class="badge">1</span></li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-md-8">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">Hỏi &amp; đáp</h3>
+				</div>
+				<div class="panel-body">
+					<blockquote>
+						<p>Tôi có thể gọi Xe từ Website không?</p>
+						<footer>Ngày 11/12/2015 14:12 <cite title="Khách hàng">Khách hàng</cite></footer>
+					</blockquote>
+					<blockquote class="blockquote-reverse">
+						<p>Bạn có thể đặt Xe trực tiếp trên trang chủ</p>
+						<footer>Ngày 11/12/2015 14:16 <cite class="text-primary" title="Hyo Chul">[CSKH] Hyo Chul</cite></footer>
+					</blockquote>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block footer %}{{ parent() }}
+<script>
+$(function () {
+	// Cập nhật Navbar
+	var navbar_id = 'support';
+	$('#ci_navbar_home').removeClass('active');
+	$('#ci_navbar_' + navbar_id).addClass('active');
+});
+
+</script>
+{% endblock %}

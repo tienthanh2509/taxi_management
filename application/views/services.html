@@ -1,0 +1,84 @@
+{#
+Chương trình quản lý Taxi
+Thiết kế bởi nhóm 1 lớp D13HT01
+Bao gồm các thành viên
+Hoàng Huy, Thái Sơn, Tiến Thành, Thanh Thúy, Thanh Vân
+#}
+
+{# Master Page #}
+{% extends 'master_page/masterpage_home.html' %}
+
+{# Nội dung trang #}
+{% block body_content %}
+<div class="container">
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>Bảng giá dịch vụ</th>
+				<th>Vios</th>
+				<th>Innova J</th>
+				<th>Innova E </th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Phí ban đầu</td>
+				<td>10.000 VNĐ</td>
+				<td>12.000 VNĐ</td>
+				<td>10.000 VNĐ</td>
+			</tr>
+			<tr>
+				<td>Giá tiếp theo</td>
+				<td>14.000 VNĐ</td>
+				<td>16.000 VNĐ</td>
+				<td>16.400 VNĐ</td>
+			</tr>
+			<tr>
+				<td>20KM --&gt; 30KM</td>
+				<td>12.000 VNĐ</td>
+				<td>12.000 VNĐ</td>
+				<td>12.500 VNĐ</td>
+			</tr>
+			<tr>
+				<td>30KM &gt;</td>
+				<td>11.500 VNĐ</td>
+				<td>11.700 VNĐ</td>
+				<td>11.800 VNĐ</td>
+			</tr>
+
+			<tr>
+				<td>Thời gian chờ</td>
+				<td>20K/h</td>
+				<td>20K/h</td>
+				<td>20K/h</td>
+			</tr>
+
+			<tr>
+				<td>Trọn gói 30KM</td>
+				<td>220.000 VNĐ</td>
+				<td>250.000 VNĐ</td>
+				<td>250.000 VNĐ</td>
+			</tr>
+
+			<tr>
+				<td>Phụ trội khi vượt gói 30KM</td>
+				<td>11.500 VNĐ</td>
+				<td>12.000 VNĐ</td>
+				<td>12.500 VNĐ</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+{% endblock %}
+
+{% block footer %}{{ parent() }}
+<script>
+$(function () {
+	// Cập nhật Navbar
+	var navbar_id = 'services';
+	$('#ci_navbar_home').removeClass('active');
+	$('#ci_navbar_' + navbar_id).addClass('active');
+});
+
+</script>
+{% endblock %}

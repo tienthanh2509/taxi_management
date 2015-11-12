@@ -1,0 +1,61 @@
+{#
+Chương trình quản lý Taxi
+Thiết kế bởi nhóm 1 lớp D13HT01
+Bao gồm các thành viên
+Hoàng Huy, Thái Sơn, Tiến Thành, Thanh Thúy, Thanh Vân
+#}
+
+{# Master Page #}
+{% extends 'master_page/masterpage_home.html' %}
+
+{# Nội dung trang #}
+{% block body_content %}
+<div class="container-fluid">
+	<div class="row top-grids">
+		<div class="col-md-12">
+			<h3>Dịch vụ Taxi</h3>
+			<h2>D TAXI</h2>
+			<ul>
+				<li><a class="what" href="{{ site_url('services') }}">Bảng giá</a></li>
+				<li><a class="join" href="{{ site_url('booking') }}">Đặt xe</a></li>
+				<div class="clear"> </div>
+			</ul>
+		</div>
+	</div>
+	<div class="row mid-grids">
+		<div class="col-md-4">
+			<h3 class="text-center"><i class="fa fa-plane fa-5x fw"></i></h3>
+			<h3>Nhanh chóng</h3>
+			<h4>Không chờ đợi</h4>
+			<p>Bạn ghét chờ đợi, hãy chọn dịch vụ của chúng tôi!</p>
+		</div>
+		<div class="col-md-4">
+			<h3 class="text-center"><i class="fa fa-shield fa-5x fw"></i></h3>
+			<h3>An toàn</h3>
+			<h4>An toàn là trên hết</h4>
+			<p>Luôn đi đầu về đảm bảo an toàn cho khách hàng</p>
+		</div>
+		<div class="col-md-4">
+			<h3 class="text-center"><i class="fa fa-usd fa-5x fw"></i></h3>
+			<h3>Giá tốt</h3>
+			<h4>Nhiều khuyến mãi</h4>
+			<p>Đa dạng loại hình dịch vụ và các ưu đã đi kèm</p>
+		</div>
+		<div class="clear"> </div>
+	</div>
+	<div class="row bottom-grids">
+		<div class="col-md-12">
+			<div class="social-links">
+				<ul>
+					<li><a href="#">Facebook</a></li>
+					<li><a href="#">Twitter</a></li>
+					<li><a href="#">Google+</a></li>
+				</ul>
+			</div>
+			<div class="mobile-no">
+				 <span>+84 123 456789</span>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
