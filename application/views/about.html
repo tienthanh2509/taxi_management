@@ -11,12 +11,86 @@ Hoàng Huy, Thái Sơn, Tiến Thành, Thanh Thúy, Thanh Vân
 {# Nội dung trang #}
 {% block body_content %}
 <div class="container">
-	<div class="jumbotron">
-		<h1>Xin chào!</h1>
-		<p>Phần mềm hỗ trợ quản lý dịch vụ TAXI v1.0</p>
-		<p>D's TAXI đang cải tiến phương thức di chuyển hiện đại.
-		Bằng cách kết nối giữa hành khách và tài xế, ứng dụng của chúng tôi khiến việc đi lại dễ dàng hơn,
-		hành khách gọi xe tiện lợi hơn và tài xế có thêm nhiều công việc hơn.</p>
+	<div class="row">
+		<div class="col-md-5">
+			<div id="ci_carousel_team" class="carousel slide" data-ride="carousel">
+				<!-- Indicators -->
+				<ol class="carousel-indicators">
+					<li data-target="#ci_carousel_team" data-slide-to="0" class="active"></li>
+					<li data-target="#ci_carousel_team" data-slide-to="1"></li>
+					<li data-target="#ci_carousel_team" data-slide-to="2"></li>
+					<li data-target="#ci_carousel_team" data-slide-to="3"></li>
+					<li data-target="#ci_carousel_team" data-slide-to="4"></li>
+				</ol>
+				<!-- Wrapper for slides -->
+				<div class="carousel-inner" role="listbox">
+					<div class="item active">
+						<img class="media-object img-circle" src="{{ base_url('assets/images/author/huy.jpg') }}" alt="Đoàn Hoàng Huy" width="200" height="200">
+						<div class="carousel-caption">
+							<h3>Đoàn Hoàng Huy</h3>
+							<p>
+								Nickname: Heo Hư Hỏng<br>
+								Sinh ngày:22/10/1995<br>
+								Nhóm trưởng
+							</p>
+						</div>
+					</div>
+					<div class="item">
+						<img class="media-object img-circle" src="{{ base_url('assets/images/author/son.jpg') }}" alt="Nguyễn Thái Sơn" width="200" height="200">
+						<div class="carousel-caption">
+							<h3>Nguyễn Thái Sơn</h3>
+							<p>
+								Nickname: Cáo Con<br>
+								Sinh ngày:11/10/1995<br>
+								Thành viên
+							</p>
+						</div>
+					</div>
+					<div class="item">
+						<img class="media-object img-circle" src="{{ base_url('assets/images/author/thanh.jpg') }}" alt="Phạm Tiến Thành" width="200" height="200">
+						<div class="carousel-caption">
+							<h3>Phạm Tiến Thành</h3>
+							<p>
+								Nickname: Roronoa Zoro<br>
+								Sinh ngày:15/09/1995<br>
+								Ông nội
+							</p>
+						</div>
+					</div>
+					<div class="item">
+						<img class="media-object img-circle" src="{{ base_url('assets/images/author/thuy.jpg') }}" alt="Hồ Thanh Thúy" width="200" height="200">
+						<div class="carousel-caption">
+							<h3>Hồ Thanh Thúy</h3>
+							<p>
+								Nickname: Hyo Chul<br>
+								Sinh ngày:17/02/1995<br>
+								Thành viên
+							</p>
+						</div>
+					</div>
+					<div class="item">
+						<img class="media-object img-circle" src="{{ base_url('assets/images/author/van.jpg') }}" alt="Nguyễn Thanh Vân" width="200" height="200">
+						<div class="carousel-caption">
+							<h3>Nguyễn Thanh Vân</h3>
+							<p>
+								Nickname: Vân Mi<br>
+								Sinh ngày:04/10/1995<br>
+								Thành viên
+							</p>
+						</div>
+					</div>
+				</div>	
+			</div>
+		</div>
+		<div class="col-md-7">
+			<div class="jumbotron">
+				<h1>Xin chào!</h1>
+				<p>Phần mềm hỗ trợ quản lý dịch vụ TAXI v1.0</p>
+				<p>D's TAXI đang cải tiến phương thức di chuyển hiện đại.
+				Bằng cách kết nối giữa hành khách và tài xế, ứng dụng của chúng tôi khiến việc đi lại dễ dàng hơn,
+				hành khách gọi xe tiện lợi hơn và tài xế có thêm nhiều công việc hơn.</p>
+			</div>
+		</div>
 	</div>
 	<div class="panel panel-default">
 		<div class="panel-heading">Nhóm sáng lập viên</div>
