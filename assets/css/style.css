@@ -153,3 +153,11 @@
 .copy-right a:hover{
 	color:#FFF;
 }
+
+@media (max-width: 800px) {
+	.top-grids{
+		padding: 5em 0;
+		margin-top: -22px;
+		background: url(../images/car_mdpi.png) no-repeat 78% 71% #f5c34c;
+	}
+}
