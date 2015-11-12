@@ -1,0 +1,155 @@
+/**
+ *
+ * Chỉnh màu NAVBAR
+ *
+ */
+
+.navbar-inverse {
+    background-color: #000;
+    border-color: #000;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+  color: #ffffff;
+  border-bottom: 3px solid #FFC809;
+}
+
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+    color: #FFC809;
+    background-color: #000;
+	border-bottom: 3px solid #FFC809;
+}
+
+/**
+ *
+ * Chỉnh bố cục
+ *
+ */
+
+.top-grids{
+	padding: 5em 0;
+	margin-top: -22px;
+	background: url(../images/car.png) no-repeat 78% 71% #f5c34c;
+}
+.top-grids h3{
+	color:#FFF;
+	font-size:2em;
+	text-transform:uppercase;
+	font-weight: bold;
+}
+.top-grids h2{
+	color:#FFF;
+	font-size: 8em;
+	text-transform:uppercase;
+	font-weight: bold;
+}
+.top-grids h4{
+	color:#FFF;
+	font-size:3em;
+	text-transform:uppercase;
+	font-weight: bold;
+	margin-bottom: 0.5em;
+}
+.top-grids ul li{
+	display:inline-block;
+	float:left;
+}
+.top-grids ul li a{
+	display:block;
+}
+
+.what{
+	padding: 25px 40px;
+	font-size:0.875em;
+	text-transform:uppercase;
+	background:#FFF;
+	color:#222;
+}
+.what:hover{
+	background:#222;
+	color:#FFF;
+}
+
+.join{
+	padding: 25px 40px;
+	font-size:0.875em;
+	text-transform:uppercase;
+	background:#222;
+	color:#FFC809;
+}
+.join:hover{
+	background:#FFC809;
+	color:#222;
+}
+
+.mid-grids{
+	padding: 4em 0 4em 0;
+	color: #FFF;
+	background: url(../images/bottom-bg.png) no-repeat 50% 101% #222;
+}
+.mid-grid{
+	float: left;
+	width: 31.33%;
+	margin-right: 2%;
+	text-align: center;
+}
+
+.bottom-grids{
+	padding: 6em 0 6em 0;
+	background:#f5c34c;
+	font-family: 'Open Sans', sans-serif;
+	position:relative;
+}
+.social-links{
+	text-align:center;
+}
+.social-links ul li{
+	display:inline-block;
+}
+.social-links ul li a{
+	font-size: 1em;
+	color: #FFF;
+	text-transform: uppercase;
+	margin: 0px 2em 0px 0px;
+	font-weight: bold;
+	display:inline-block;
+
+}
+.mobile-no{
+	text-align:center;
+}
+.mobile-no span{
+	font-size: 6em;
+	text-transform: uppercase;
+	color: #FFF;
+	font-weight: bold;
+	padding: 0.2em 0 0.1em 0;
+	display: block;
+}
+.footer-logo{
+	text-align:center;
+}
+.footer-logo a{
+	font-size:3em;
+	color:#FFF;
+	text-transform:uppercase;
+}
+.copy-right{
+	text-align:center;
+}
+.copy-right p{
+	font-size:1em;
+	text-transform:uppercase;
+	color:#FFF
+}
+.copy-right a{
+	color:#222;
+	margin:1em 0;
+	display:inline-block;
+}
+.copy-right a:hover{
+	color:#FFF;
+}
