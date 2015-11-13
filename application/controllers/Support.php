@@ -12,7 +12,7 @@
  *
  * @author Phạm Tiến Thành <tienthanh.dqc@gmail.com>
  */
-class Support extends CI_D13HT01_Guest {
+class Support extends CI_D13HT01 {
 
 	public function index()
 	{

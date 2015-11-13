@@ -12,7 +12,7 @@
  *
  * @author Phạm Tiến Thành <tienthanh.dqc@gmail.com>
  */
-class Booking extends CI_D13HT01_Guest {
+class Booking extends CI_D13HT01 {
 
 	public function index()
 	{
