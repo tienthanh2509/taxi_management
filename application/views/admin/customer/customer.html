@@ -1,0 +1,72 @@
+{#
+Chương trình quản lý Taxi
+Thiết kế bởi nhóm 1 lớp D13HT01
+Bao gồm các thành viên
+Hoàng Huy, Thái Sơn, Tiến Thành, Thanh Thúy, Thanh Vân
+#}
+
+{# Master Page #}
+{% extends 'master_page/masterpage_admin.html' %}
+
+{# Nội dung trang #}
+{% block body_content %}
+<div class="container-fluid">
+	<!-- Stack the columns on mobile by making one half-width and the other full-width -->
+	<div class="row">
+		<div class="col-xs-3 col-md-3">
+			{% include 'admin/sidebar-left.html' %}
+		</div>
+		<div class="col-xs-9 col-md-9">
+			<div class="pull-right">{{ pagination|raw }}</div>
+			<a class="btn btn-success" href="{{ site_url('admin/customer/add') }}"><i class="fa fa-plus"></i> Thêm</a>
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>Mã NV</th>
+						<th>Họ &amp; Tên</th>
+						<th>Giới tính</th>
+						<th>SĐT</th>
+						<th>Tình trạng</th>
+						<th>Thao tác</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for m in customer_list %}
+					<tr>
+						<th scope="row">{{ m.customer_id }}</th>
+						<td>{{ m.customer_name }}</td>
+						<td>{{ m.customer_gender == 0 ? 'Nam' : (m.customer_gender == 1 ? 'Nữ' : 'N/a') }}</td>
+						<td>{{ m.customer_phone }}</td>
+						<td>{{ m.customer_active == 1 ? 'Đã xác thực' : 'Chờ xác thực' }}</td>
+						<td>
+							<a href="{{ site_url('admin/customer/edit/' ~ m.customer_id) }}">Sửa</a>
+							<a href="{{ site_url('admin/customer/delete/' ~ m.customer_id) }}">Xóa</a>
+						</td>
+					</tr>
+					{% else %}
+					<tr>
+						<td colspan="11"><p class="text-center">Không có dữ liệu!</p></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+			{{ pagination|raw }}
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block footer %}{{ parent() }}
+<script>
+$(function () {
+	// Cập nhật Navbar
+	var navbar_id = 'customer';
+	var navbar_pills_id = 'customer';
+	$('#ci_navbar_home').removeClass('active');
+	$('#ci_navbar_' + navbar_id).addClass('active');
+	$('#nav-pills-' + navbar_pills_id).addClass('active');
+});
+
+</script>
+{% endblock %}

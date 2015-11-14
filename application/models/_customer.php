@@ -8,11 +8,11 @@
  */
 
 /**
- * Lớp xử lý dữ liệu nhóm người dùng
+ * Description of _customer
  *
  * @author Phạm Tiến Thành <tienthanh.dqc@gmail.com>
  */
-class _groups extends CI_Model {
+class _customer extends CI_Model {
 
 	public function __construct()
 	{
@@ -22,18 +22,29 @@ class _groups extends CI_Model {
 	public function get_all($limit = 30, $offset = 0)
 	{
 		$this->db->limit($limit, $offset);
-		return $this->db->get('ci_groups')->result_array();
+		return $this->db->get('ci_customer')->result_array();
 	}
 
 	public function count_all()
 	{
-		return $this->db->count_all('ci_groups');
+		return $this->db->count_all('ci_customer');
 	}
 
-	public function get_by_id($group_id)
+	public function get_by_id($customer_id)
 	{
-		$this->db->where('group_id', $group_id);
-		$data = $this->db->get('ci_groups')->result_array();
+		$this->db->where('customer_id', $customer_id);
+		$data = $this->db->get('ci_customer')->result_array();
+
+		if (!isset($data[0]))
+			return NULL;
+		else
+			return $data[0];
+	}
+
+	public function get_by_phone($customer_phone)
+	{
+		$this->db->where('customer_phone', $customer_phone);
+		$data = $this->db->get('ci_customer')->result_array();
 
 		if (!isset($data[0]))
 			return NULL;
@@ -43,8 +54,15 @@ class _groups extends CI_Model {
 
 	public function add($param)
 	{
+		if (empty($param))
+		{
+			return -1;
+		}
+
 		$this->db->trans_start();
-		$this->db->insert('ci_groups', $param);
+
+		$this->db->insert('ci_customer', $param);
+
 		$this->db->trans_complete();
 
 		if ($this->db->trans_status() === FALSE)
@@ -57,17 +75,13 @@ class _groups extends CI_Model {
 		}
 	}
 
-	public function update($group_id, $param)
+	public function update($customer_id, $param)
 	{
-		// Bảo vệ danh sách nhóm
-		if ($group_id < 6 && isset($param['group_id']) && $group_id != $param['group_id'])
-		{
-			return -1;
-		}
-
 		$this->db->trans_start();
-		$this->db->where('group_id', $group_id);
-		$this->db->update('ci_groups', $param);
+
+		$this->db->where('customer_id', $customer_id);
+		$this->db->update('ci_customer', $param);
+
 		$this->db->trans_complete();
 
 		if ($this->db->trans_status() === FALSE)
@@ -80,17 +94,11 @@ class _groups extends CI_Model {
 		}
 	}
 
-	public function delete($group_id)
+	public function delete($customer_id)
 	{
-		// Bảo vệ danh sách nhóm
-		if ($group_id < 7)
-		{
-			return -1;
-		}
-
 		$this->db->trans_start();
-		$this->db->where('group_id', $group_id);
-		$this->db->delete('ci_groups');
+		$this->db->where('customer_id', $customer_id);
+		$this->db->delete('ci_customer');
 		$this->db->trans_complete();
 
 		if ($this->db->trans_status() === FALSE)

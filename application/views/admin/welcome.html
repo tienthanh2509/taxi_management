@@ -1,0 +1,62 @@
+{#
+Chương trình quản lý Taxi
+Thiết kế bởi nhóm 1 lớp D13HT01
+Bao gồm các thành viên
+Hoàng Huy, Thái Sơn, Tiến Thành, Thanh Thúy, Thanh Vân
+#}
+
+{# Master Page #}
+{% extends 'master_page/masterpage_admin.html' %}
+
+{# Nội dung trang #}
+{% block body_content %}
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-3">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Công cụ</div>
+				<ul class="list-group">
+					<li class="list-group-item"><a href="#">Sao lưu CSDL</a></li>
+					<li class="list-group-item"><a href="#">Bảo trì hệ thống</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="col-md-9">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Nhật ký hệ thống</div>
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Loại</th>
+							<th>Thời gian</th>
+							<th>Nội dung</th>
+						</tr>
+					</thead>
+					<tbody>
+					{% for log in logs %}
+						<tr>
+							<th scope="row">{{ loop.index }}</th>
+							<td>{{ log.1 }}</td>
+							<td>{{ log.2 }}</td>
+							<td>{{ log.3 }}</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="2" class="text-center">Không có nhật ký!</td>
+						</tr>
+					{% endfor %}
+					</tbody>
+				</table>
+			</div>
+
+			{{ pagination|raw }}
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block footer %}{{ parent() }}
+
+{% endblock %}
