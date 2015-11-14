@@ -26,3 +26,4 @@ $config['cur_tag_open']			 = '<li class="active"><a href="#">';
 $config['cur_tag_close']		 = '</a></li>';
 $config['num_tag_open']			 = '<li>';
 $config['num_tag_close']		 = '</li>';
+$config['per_page']				 = 20;
