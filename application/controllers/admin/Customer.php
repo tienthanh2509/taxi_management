@@ -29,10 +29,9 @@ class Customer extends CI_D13HT01 {
 
 		$this->load->library('pagination');
 
-		$config['base_url']		 = $this->config->site_url('admin/customer/index');
+		$config['base_url']		 = $this->config->site_url('admin/customer');
 		$config['total_rows']	 = $this->_c->count_all();
 		$config['per_page']		 = 20;
-		$config['uri_segment']	 = 3;
 
 		$this->data['customer_list'] = $this->_c->get_all($config['per_page'], ($page - 1) * $config['per_page']);
 

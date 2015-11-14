@@ -31,10 +31,9 @@ class User extends CI_D13HT01 {
 
 		$this->load->library('pagination');
 
-		$config['base_url']		 = $this->config->site_url('admin/user/index');
+		$config['base_url']		 = $this->config->site_url('admin/user');
 		$config['total_rows']	 = $this->_u->count_all();
-		$config['per_page']		 = 30;
-		$config['uri_segment']	 = 3;
+		$config['per_page']		 = 20;
 
 		$this->data['user_list'] = $this->_u->get_all($config['per_page'], ($page - 1) * $config['per_page']);
 

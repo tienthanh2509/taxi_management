@@ -29,10 +29,9 @@ class Group extends CI_D13HT01 {
 
 		$this->load->library('pagination');
 
-		$config['base_url']		 = $this->config->site_url('admin/group/index');
+		$config['base_url']		 = $this->config->site_url('admin/group');
 		$config['total_rows']	 = $this->_g->count_all();
 		$config['per_page']		 = 5;
-		$config['uri_segment']	 = 3;
 
 		$this->data['group_list'] = $this->_g->get_all($config['per_page'], ($page - 1) * $config['per_page']);
 

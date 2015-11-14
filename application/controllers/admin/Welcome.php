@@ -26,7 +26,7 @@ class Welcome extends CI_D13HT01 {
 		{
 			$this->load->library('pagination');
 
-			$config['base_url']		 = $this->config->site_url('admin/welcome/index');
+			$config['base_url']		 = $this->config->site_url('admin/welcome');
 			$config['total_rows']	 = count($logs);
 			$config['per_page']		 = 20;
 			$config['uri_segment']	 = 4;
