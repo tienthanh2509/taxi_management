@@ -1,0 +1,63 @@
+{#
+Chương trình quản lý Taxi
+Thiết kế bởi nhóm 1 lớp D13HT01
+Bao gồm các thành viên
+Hoàng Huy, Thái Sơn, Tiến Thành, Thanh Thúy, Thanh Vân
+#}
+
+{# Master Page #}
+{% extends 'master_page/masterpage_admin.html' %}
+
+{# Nội dung trang #}
+{% block body_content %}
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-3 col-md-3">
+			{% include 'admin/sidebar-left.html' %}
+		</div>
+		<div class="col-xs-9 col-md-9">
+			<div class="pull-right">{{ pagination|raw }}</div>
+			<a class="btn btn-success" href="{{ site_url('admin/car/add/manufacturer') }}"><i class="fa fa-plus"></i> Thêm</a>
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>Mã NSX</th>
+						<th>Tên NSX</th>
+						<th>Thao tác</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for m in manufacturer_list %}
+					<tr>
+						<th scope="row">{{ m.manufacturer_id }}</th>
+						<td>{{ m.manufacturer_name }}</td>
+						<td>
+							<a href="{{ site_url('admin/car/edit/manufacturer/' ~ m.manufacturer_id) }}">Sửa</a>
+							<a href="{{ site_url('admin/car/delete/manufacturer/' ~ m.manufacturer_id) }}">Xóa</a>
+						</td>
+					</tr>
+					{% else %}
+					<tr>
+						<td colspan="3"><p class="text-center">Không có dữ liệu!</p></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{{ pagination|raw }}
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block footer %}{{ parent() }}
+<script>
+$(function(){
+	// Cập nhật Navbar
+	var navbar_id = 'car';
+	var navbar_pills_id = 'car-manufacturer';
+	$('#ci_navbar_home').removeClass('active');
+	$('#ci_navbar_' + navbar_id).addClass('active');
+	$('#nav-pills-' + navbar_pills_id).addClass('active');
+});
+</script>
+{% endblock %}

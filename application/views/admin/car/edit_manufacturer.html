@@ -1,0 +1,43 @@
+{#
+Chương trình quản lý Taxi
+Thiết kế bởi nhóm 1 lớp D13HT01
+Bao gồm các thành viên
+Hoàng Huy, Thái Sơn, Tiến Thành, Thanh Thúy, Thanh Vân
+#}
+
+{# Master Page #}
+{% extends 'master_page/masterpage_admin.html' %}
+
+{# Nội dung trang #}
+{% block body_content %}
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-3 col-md-3">
+			{% include 'admin/sidebar-left.html' %}
+		</div>
+		<div class="col-xs-9 col-md-9">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Sửa hãng xe</h3>
+			</div>
+			<div class="panel-body">
+			{% include 'admin/car/layout/form_edit_manufacturer.html' %}
+			</div>
+		</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block footer %}{{ parent() }}
+<script>
+$(function () {
+	// Cập nhật Navbar
+	var navbar_id = 'car';
+	var navbar_pills_id = 'manufacturer';
+	$('#ci_navbar_home').removeClass('active');
+	$('#ci_navbar_' + navbar_id).addClass('active');
+	$('#nav-pills-' + navbar_pills_id).addClass('active');
+});
+</script>
+{% endblock %}
