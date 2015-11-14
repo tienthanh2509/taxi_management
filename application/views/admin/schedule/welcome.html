@@ -1,0 +1,80 @@
+{#
+Chương trình quản lý Taxi
+Thiết kế bởi nhóm 1 lớp D13HT01
+Bao gồm các thành viên
+Hoàng Huy, Thái Sơn, Tiến Thành, Thanh Thúy, Thanh Vân
+#}
+
+{# Master Page #}
+{% extends 'master_page/masterpage_admin.html' %}
+
+{# Nội dung trang #}
+{% block body_content %}
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-3 col-md-3">
+			{% include 'admin/sidebar-left.html' %}
+		</div>
+		<div class="col-xs-9 col-md-9">
+			<div class="pull-right">{{ pagination|raw }}</div>
+			<a class="btn btn-success" href="{{ site_url('admin/schedule/add') }}"><i class="fa fa-plus"></i> Thêm</a>
+			<a class="btn btn-warning" href="{{ site_url('admin/schedule/auto') }}"><i class="fa fa-magic"></i> Phân công tự động</a>
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>Số hiệu</th>
+						<th>Ngày</th>
+						<th>Ca</th>
+						<th>Mã NV</th>
+						<th>TK</th>
+						<th>Họ</th>
+						<th>Tên</th>
+						<th>Mã Xe</th>
+						<th>Biển số</th>
+						<th>Thao tác</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for m in schedule_list %}
+					<tr>
+						<th scope="row">{{ m.schedule_id }}</th>
+						<td>{{ m.schedule_date }}</td>
+						<td>{{ m.schedule_shift }}</td>
+						<td>{{ m.user_id }}</td>
+						<td>{{ m.user_name }}</td>
+						<td>{{ m.user_ln }}</td>
+						<td>{{ m.user_fn }}</td>
+						<td>{{ m.car_id }}</td>
+						<td>{{ m.car_lp }}</td>
+						<td>
+							<a href="{{ site_url('admin/schedule/edit/' ~ m.schedule_id) }}">Sửa</a>
+							<a href="{{ site_url('admin/schedule/delete/' ~ m.schedule_id) }}">Xóa</a>
+						</td>
+					</tr>
+					{% else %}
+					<tr>
+						<td colspan="10"><p class="text-center">Không có dữ liệu!</p></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+			{{ pagination|raw }}
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block footer %}{{ parent() }}
+<script>
+$(function () {
+	// Cập nhật Navbar
+	var navbar_id = 'schedule';
+	var navbar_pills_id = 'schedule';
+	$('#ci_navbar_home').removeClass('active');
+	$('#ci_navbar_' + navbar_id).addClass('active');
+	$('#ci_collapse_' + navbar_pills_id).collapse('show');
+});
+
+</script>
+{% endblock %}

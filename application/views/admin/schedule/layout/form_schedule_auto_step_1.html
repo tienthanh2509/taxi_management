@@ -1,0 +1,74 @@
+{#
+Chương trình quản lý Taxi
+Thiết kế bởi nhóm 1 lớp D13HT01
+Bao gồm các thành viên
+Hoàng Huy, Thái Sơn, Tiến Thành, Thanh Thúy, Thanh Vân
+#}
+<form class="form-horizontal" method="get">
+	{% if message %}
+	<div class="alert alert-success" role="alert">
+		<span class="fa fa-exclamation-circle" aria-hidden="true"></span>
+		<span class="sr-only">Thông báo:</span>
+		{{ message|raw }}
+	</div>
+	{% endif %}
+	{% if error_message %}
+	<div class="alert alert-danger" role="alert">
+		<span class="fa fa-exclamation-circle" aria-hidden="true"></span>
+		<span class="sr-only">Lỗi:</span>
+		{{ error_message|raw }}
+	</div>
+	{% endif %}
+
+	<div class="row">
+		<div class="col-md-6">
+			<div class="form-group">
+				<label for="ci_form_schedule_shift" class="col-sm-4 control-label">Ca trực <span class="text-danger">*</span></label>
+				<div class="col-sm-8">
+					<select class="form-control" id="ci_form_schedule_shift" name="ci_form_schedule_shift[]" multiple>
+						<option value="1"{{ set_select('ci_form_schedule_shift[]', '1') }}>0:00 - 6:00</option>
+						<option value="2"{{ set_select('ci_form_schedule_shift[]', '2') }}>6:00 - 12:00</option>
+						<option value="3"{{ set_select('ci_form_schedule_shift[]', '3') }}>12:00 - 18:00</option>
+						<option value="4"{{ set_select('ci_form_schedule_shift[]', '4') }}>18:00 - 24:00</option>
+					</select>
+					<p class="help-block">
+						<a href="#" onclick="$('#ci_form_schedule_shift option').prop('selected', true);">Chọn tất cả</a>
+						<a href="#" onclick="$('#ci_form_schedule_shift option').prop('selected', false);">Hủy chọn tất cả</a>
+					</p>
+					<p class="help-block">Chọn ca để phân công, có thể chọn nhiều ca cùng lúc bằng cách nhân giữ phím ctrl</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="form-group">
+				<label for="ci_form_schedule_date" class="col-sm-4 control-label">Ngày làm việc <span class="text-danger">*</span></label>
+				<div class="col-sm-8">
+					<input type="date" class="form-control" id="ci_form_schedule_date" name="ci_form_schedule_date" value="{{ set_value('ci_form_schedule_date', 'now'|date('Y-m-d')) }}">
+					<p class="help-block"></p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="ci_form_schedule_limit" class="col-sm-4 control-label">Số ca/tài xế <span class="text-danger">*</span></label>
+				<div class="col-sm-8">
+					<select class="form-control" id="ci_form_schedule_limit" name="ci_form_schedule_limit">
+						<option value="1"{{ set_select('ci_form_schedule_limit', '1') }}>1 ca một ngày</option>
+						<option value="2"{{ set_select('ci_form_schedule_limit', '2', TRUE) }}>2 ca một ngày</option>
+					</select>
+					<p class="help-block">Giới hạn số ca làm việc</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-sm-8">
+			<a class="btn btn-success pull-left" href="{{ site_url('admin/schedule') }}"><i class="fa fa-backward fa-fw"></i> Quay lại</a>
+		</div>
+		<div class="col-sm-4">
+			<input type="hidden" name="step" value="2">
+			<button type="submit" class="btn btn-warning pull-right"><i class="fa fa-arrow-circle-right fa-fw"></i> Tiếp theo</button>
+		</div>
+	</div>
+</form>
