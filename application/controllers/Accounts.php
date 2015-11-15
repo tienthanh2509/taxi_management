@@ -28,9 +28,14 @@ class Accounts extends CI_D13HT01 {
 		
 	}
 
-	public function login()
+	public function sign_in()
 	{
-		$this->render('accounts/login');
+		$this->data['role'] = $this->input->get('role') ? $this->input->get('role') : 'guest';
+
+		if (in_array($this->data['role'], ['admin', 'accountant', 'driver']))
+			$this->render('accounts/login');
+		else
+			$this->render('accounts/customer_login');
 	}
 
 	public function ajax_login()
@@ -66,12 +71,14 @@ class Accounts extends CI_D13HT01 {
 
 			$this->form_validation->set_rules('username', 'Tên tài khoản', 'required|min_length[6]|max_length[32]');
 			$this->form_validation->set_rules('password', 'Mật khẩu', 'required|min_length[4]|max_length[32]');
+			$this->form_validation->set_rules('role', 'Cấp quyền', 'required');
 
 			if ($this->form_validation->run() === TRUE)
 			{
 				$username	 = $this->input->post('username');
 				$password	 = $this->input->post('password');
-				$status		 = $this->_a->login($username, $password);
+				$role		 = $this->input->post('role');
+				$status		 = $this->_a->login($username, $password, $role);
 
 				if ($status === 0)
 				{
@@ -89,6 +96,7 @@ class Accounts extends CI_D13HT01 {
 				{
 					$this->session->set_userdata('user_id', $status['user_id']);
 					$this->session->set_userdata('user_name', $status['user_name']);
+					$this->session->set_userdata('user_role', $role);
 
 					$response = [
 						'status'	 => 1,
@@ -122,9 +130,100 @@ class Accounts extends CI_D13HT01 {
 		$this->output->append_output(json_encode($response));
 	}
 
-	public function logout()
+	public function ajax_customer_login()
 	{
-		if (!$this->session->userdata('user_name'))
+		if (!$this->input->is_ajax_request())
+		{
+			show_error('Từ chối truy cập!', 403);
+		}
+
+		$login_attempts				 = (int) $this->session->userdata('accounts.login.attempts') ? $this->session->userdata('accounts.login.attempts') : 0;
+		$login_attempts_timestamp	 = (int) $this->session->userdata('accounts.login.attempts.countdown') ? $this->session->userdata('accounts.login.attempts.countdown') : 0;
+		$login_attempts_countdown	 = (1 * 60) - (time() - $login_attempts_timestamp);
+
+		if ($this->session->userdata('customer_id'))
+		{
+			$response = [
+				'status'	 => 1,
+				'message'	 => 'Đăng nhập thành công!'
+			];
+		}
+		elseif ($login_attempts > 3 && $login_attempts_countdown > 0)
+		{
+			$response = [
+				'status'	 => -1,
+				'message'	 => 'Bạn đã đăng nhập sai quá nhiều lần!',
+				'timeout'	 => $login_attempts_countdown
+			];
+		}
+		else
+		{
+			$this->load->library('form_validation');
+			$this->form_validation->set_error_delimiters('<span>', '</span>');
+
+			$this->form_validation->set_rules('ci_form_customer_phone', 'Số điện thoại', 'required|numeric|min_length[6]|max_length[32]');
+			$this->form_validation->set_rules('ci_form_customer_password', 'Mật khẩu', 'required|min_length[4]|max_length[32]');
+
+			if ($this->form_validation->run() === TRUE)
+			{
+				$phone_number	 = $this->input->post('ci_form_customer_phone');
+				$password		 = $this->input->post('ci_form_customer_password');
+				$status			 = $this->_a->customer_login($phone_number, $password);
+
+				if ($status === 0)
+				{
+					$response = [
+						'status'	 => 0,
+						'message'	 => 'Sai tài khoản hoặc mật khẩu?!'
+					];
+					$this->session->set_userdata('accounts.login.attempts', $login_attempts + 1);
+					if ($login_attempts > 3)
+					{
+						$this->session->set_userdata('accounts.login.attempts.countdown', time());
+					}
+				}
+				elseif (!empty($status['customer_id']) && !empty($status['customer_name']))
+				{
+					$this->session->set_userdata('customer_id', $status['customer_id']);
+					$this->session->set_userdata('customer_name', $status['customer_name']);
+					$this->session->set_userdata('customer_phone', $status['customer_phone']);
+					$this->session->set_userdata('customer_gender', $status['customer_gender']);
+
+					$response = [
+						'status'	 => 1,
+						'message'	 => 'Đăng nhập thành công!'
+					];
+				}
+				elseif ($status === -1)
+				{
+					$response = [
+						'status'	 => 0,
+						'message'	 => 'Tài khoản đang chờ xác thực!'
+					];
+				}
+				else
+				{
+					$response = [
+						'status'	 => 0,
+						'message'	 => 'Đã xảy ra lỗi!'
+					];
+				}
+			}
+			else
+			{
+				$response = [
+					'status'	 => FALSE,
+					'message'	 => validation_errors(),
+				];
+			}
+		}
+		$this->output->set_content_type('json');
+		$this->output->append_output(json_encode($response));
+	}
+
+	public function sign_out()
+	{
+		if (!$this->session->userdata('user_id') && !$this->session->userdata('customer_id'))
 		{
 			show_error('Từ chối truy cập!', 403);
 		}

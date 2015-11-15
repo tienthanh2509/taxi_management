@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Welcome extends CI_D13HT01_Guest {
+class Welcome extends CI_D13HT01 {
 
 	/**
 	 * Index Page for this controller.

@@ -1,0 +1,77 @@
+<div class="panel-group" id="ci_accordion">
+	<!-- Hệ thống -->
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#ci_accordion" href="#ci_collapse_system"><i class="fa fa-server"></i> Hệ thống</a>
+			</h4>
+		</div>
+		<div id="ci_collapse_system" class="panel-collapse collapse">
+			<div class="panel-body">
+				<p><i class="fa fa-hdd-o fa-fw text-primary"></i> <a href="{{ site_url('admin/maintain/backup_db') }}">Sao lưu CSDL</a></p>
+				<p><i class="fa fa-trash fa-fw text-primary"></i> <a href="{{ site_url('admin/maintain/clear_trash') }}">Dọn dẹp hệ thống</a></p>
+			</div>
+		</div>
+	</div>
+
+	<!-- Nhân sự -->
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#ci_accordion" href="#ci_collapse_user"><i class="fa fa-users"></i> Nhân sự</a>
+			</h4>
+		</div>
+		<div id="ci_collapse_user" class="panel-collapse collapse">
+			<div class="panel-body">
+				<p><i class="fa fa-user fa-fw text-primary"></i> <a href="{{ site_url('admin/user') }}">Nhân viên</a></p>
+				<p><i class="fa fa-users fa-fw text-primary"></i> <a href="{{ site_url('admin/group') }}">Nhóm tài khoản</a></p>
+			</div>
+		</div>
+	</div>
+
+	<!-- Xe -->
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#ci_accordion" href="#ci_collapse_car"><i class="fa fa-cab"></i> Xe</a>
+			</h4>
+		</div>
+		<div id="ci_collapse_car" class="panel-collapse collapse">
+			<div class="panel-body">
+				<p><i class="fa fa-car fa-fw text-primary"></i> <a href="{{ site_url('admin/car') }}">Xe</a></p>
+				<p><i class="fa fa-car fa-fw text-primary"></i> <a href="{{ site_url('admin/car/model') }}">Loại xe</a></p>
+				<p><i class="fa fa-car fa-fw text-primary"></i> <a href="{{ site_url('admin/car/manufacturer') }}">Hãng xe</a></p>
+			</div>
+		</div>
+	</div>
+
+	<!-- Khách hàng -->
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#ci_accordion" href="#ci_collapse_customer"><i class="fa fa-user"></i> Khách hàng</a>
+			</h4>
+		</div>
+		<div id="ci_collapse_customer" class="panel-collapse collapse">
+			<div class="panel-body">
+				<p><i class="fa fa-user fa-fw text-primary"></i> <a href="{{ site_url('admin/customer') }}">Khách hàng</a></p>
+				<p><i class="fa fa-book fa-fw text-primary"></i> <a href="{{ site_url('admin/booking') }}">Yêu cầu cần xử lý</a></p>
+			</div>
+		</div>
+	</div>
+
+	<!-- Phân công -->
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#ci_accordion" href="#ci_collapse_schedule"><i class="fa fa-calendar"></i> Phân công</a>
+			</h4>
+		</div>
+		<div id="ci_collapse_schedule" class="panel-collapse collapse">
+			<div class="panel-body">
+				<p><i class="fa fa-calendar fa-fw text-primary"></i> <a href="{{ site_url('admin/schedule') }}">Lịch trình</a></p>
+				<p><i class="fa fa-cogs fa-fw text-primary"></i> <a href="{{ site_url('admin/schedule/auto') }}">Phân công tự động</a></p>
+			</div>
+		</div>
+	</div>
+</div>

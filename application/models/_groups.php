@@ -83,7 +83,7 @@ class _groups extends CI_Model {
 	public function delete($group_id)
 	{
 		// Bảo vệ danh sách nhóm
-		if ($group_id < 6)
+		if ($group_id < 7)
 		{
 			return -1;
 		}

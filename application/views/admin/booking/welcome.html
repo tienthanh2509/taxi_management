@@ -1,0 +1,89 @@
+{#
+Chương trình quản lý Taxi
+Thiết kế bởi nhóm 1 lớp D13HT01
+Bao gồm các thành viên
+Hoàng Huy, Thái Sơn, Tiến Thành, Thanh Thúy, Thanh Vân
+#}
+
+{# Master Page #}
+{% extends 'master_page/masterpage_admin.html' %}
+
+{# Nội dung trang #}
+{% block body_content %}
+<div class="container-fluid">
+	<!-- Stack the columns on mobile by making one half-width and the other full-width -->
+	<div class="row">
+		<div class="col-xs-3 col-md-3">
+			{% include 'admin/sidebar-left.html' %}
+		</div>
+		<div class="col-xs-9 col-md-9">
+			<h4>Danh sách chờ xử lý</h4>
+			<div class="pull-right">{{ pagination|raw }}</div>
+			<a class="btn btn-warning" href="{{ site_url('admin/booking/') }}"><i class="fa fa-clock-o"></i> Chờ xử lý</a>
+			<a class="btn btn-success" href="{{ site_url('admin/booking/?all=true') }}"><i class="fa fa-list"></i> Tất cả yêu cầu</a>
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>Số hiệu</th>
+						<th>Tên KH</th>
+						<th>SĐT</th>
+						<th>Giới tính</th>
+						<th>Vị trí</th>
+						<th>Đích đến</th>
+						<th>Thời gian</th>
+						<th>Loại</th>
+						<th>Ghi chú</th>
+						<th>Thao tác</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for m in booking_pending_list %}
+					<tr>
+						<th scope="row">{{ m.booking_id }}</th>
+						<td>{{ m.booking_customer_name }}</td>
+						<td><a href="tel:{{ m.booking_customer_phone }}">{{ m.booking_customer_phone }}</a></td>
+						<td>{{ m.booking_customer_gender == 0 ? 'Nam' : (m.booking_customer_gender == 1 ? 'Nữ' : 'N/a') }}</td>
+						<td>{{ m.booking_pickup_place }}</td>
+						<td>{{ m.booking_drop_place }}</td>
+						<td>{{ m.booking_date }}</td>
+						<td>{% if m.booking_status == 1 %}<img src="{{ base_url('assets/images/new.gif') }}">{% elseif m.booking_status == 2 %}Đã xử lý{% else %}Chưa xử lý{% endif %}</td>
+						<td>{{ m.booking_note }}</td>
+						<td>
+							<b><a href="{{ site_url('admin/trip/add?booking_id=' ~ m.booking_id) }}">Gọi TX</a></b>,
+							<a href="#" onclick="booking_delete('{{ m.booking_id }}', '{{ m.booking_customer_name }}');">Xóa</a>
+						</td>
+					</tr>
+					{% else %}
+					<tr>
+						<td colspan="4"><p class="text-center">Không có dữ liệu!</p></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+			{{ pagination|raw }}
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block footer %}{{ parent() }}
+<script>
+$(function () {
+	// Cập nhật Navbar
+	var navbar_id = 'booking';
+	var navbar_pills_id = 'customer';
+	$('#ci_navbar_home').removeClass('active');
+	$('#ci_navbar_' + navbar_id).addClass('active');
+	$('#ci_collapse_' + navbar_pills_id).collapse('show');
+});
+
+function booking_delete(booking_id, booking_customer_name) {
+	var result = confirm('Bạn có chắc muốn xóa yêu cầu "' + booking_id + '" từ KH "' + booking_customer_name + '" không?');
+	if (result) {
+		window.location.href = "{{ site_url('admin/booking/delete') }}/" + booking_id;
+	}
+}
+
+</script>
+{% endblock %}

@@ -1,0 +1,82 @@
+{#
+Chương trình quản lý Taxi
+Thiết kế bởi nhóm 1 lớp D13HT01
+Bao gồm các thành viên
+Hoàng Huy, Thái Sơn, Tiến Thành, Thanh Thúy, Thanh Vân
+#}
+
+{# Master Page #}
+{% extends 'master_page/masterpage_admin.html' %}
+
+{# Nội dung trang #}
+{% block body_content %}
+<div class="container-fluid">
+	<!-- Stack the columns on mobile by making one half-width and the other full-width -->
+	<div class="row">
+		<div class="col-xs-3 col-md-3">
+			{% include 'admin/sidebar-left.html' %}
+		</div>
+		<div class="col-xs-9 col-md-9">
+			<div class="pull-right">{{ pagination|raw }}</div>
+			<a class="btn btn-success" href="{{ site_url('admin/user/add') }}"><i class="fa fa-plus"></i> Thêm</a>
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>Mã NV</th>
+						<th>Tài khoản</th>
+						<th>Email</th>
+						<th>Họ</th>
+						<th>Tên</th>
+						<th>Ngày sinh</th>
+						<th>Giới tính</th>
+						<th>SĐT</th>
+						<th>Nhóm</th>
+						<th>Tình trạng</th>
+						<th>Thao tác</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for m in user_list %}
+					<tr>
+						<th scope="row">{{ m.user_id }}</th>
+						<td>{{ m.user_name }}</td>
+						<td>{{ m.user_email }}</td>
+						<td>{{ m.user_ln }}</td>
+						<td>{{ m.user_fn }}</td>
+						<td>{{ m.user_bd }}</td>
+						<td>{{ m.user_gender == 0 ? 'Nam' : (m.user_gender == 1 ? 'Nữ' : 'N/a') }}</td>
+						<td>{{ m.user_phone }}</td>
+						<td>{{ m.group_name }}</td>
+						<td>{{ m.user_active == 1 ? 'OK' : 'Đ/C' }}</td>
+						<td>
+							<a href="{{ site_url('admin/user/edit/' ~ m.user_id) }}">Sửa</a>
+							<a href="{{ site_url('admin/user/delete/' ~ m.user_id) }}">Xóa</a>
+						</td>
+					</tr>
+					{% else %}
+					<tr>
+						<td colspan="11"><p class="text-center">Không có dữ liệu!</p></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+			{{ pagination|raw }}
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block footer %}{{ parent() }}
+<script>
+$(function () {
+	// Cập nhật Navbar
+	var navbar_id = 'user';
+	var navbar_pills_id = 'user';
+	$('#ci_navbar_home').removeClass('active');
+	$('#ci_navbar_' + navbar_id).addClass('active');
+	$('#ci_collapse_' + navbar_pills_id).collapse('show');
+});
+
+</script>
+{% endblock %}
