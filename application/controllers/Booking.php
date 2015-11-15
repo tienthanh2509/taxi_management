@@ -27,36 +27,43 @@ class Booking extends CI_D13HT01 {
 		$this->load->library('form_validation');
 		$this->form_validation->set_error_delimiters('<span>', '</span><br>');
 
-		$this->form_validation->set_rules('ci_form_booking_customer_phone', 'Số diện thoại', 'required|numeric|min_length[6]|max_length[32]|is_unique[ci_customer.customer_phone]');
+		$this->form_validation->set_rules('ci_form_booking_customer_phone', 'Số diện thoại', 'required|numeric|min_length[6]|max_length[32]');
 		$this->form_validation->set_rules('ci_form_booking_customer_gender', 'Giới tính', 'required|integer|in_list[0,1,2]');
 		$this->form_validation->set_rules('ci_form_booking_customer_name', 'Họ & tên', 'required');
 		$this->form_validation->set_rules('ci_form_booking_pickup_place', 'Vị trí hiện tại', 'required');
 		$this->form_validation->set_rules('ci_form_booking_drop_place', 'Vị trí cần đến', 'required');
+		$this->form_validation->set_rules('ci_form_booking_note', 'Ghi chú', 'max_length[500]');
 
 		if ($this->form_validation->run() === TRUE)
 		{
-			$customer_data	 = [
-				'customer_phone'	 => $this->input->post('ci_form_customer_name'),
-				'customer_password'	 => password_hash($this->input->post('ci_form_customer_password'), PASSWORD_DEFAULT),
-				'customer_phone'	 => $this->input->post('ci_form_customer_phone'),
-				'customer_gender'	 => $this->input->post('ci_form_customer_gender'),
-				'customer_name'		 => $this->input->post('ci_form_customer_name'),
-				'customer_bd'		 => $this->input->post('ci_form_customer_bd'),
-				'customer_active'	 => $this->input->post('ci_form_customer_active'),
-			];
-			$status			 = $this->_b->add($customer_data);
-
-			if ($status === 1)
+			if ((time() - $this->session->userdata('booking.timestamp')) < 10)
 			{
-				$this->data['message'] = 'Đã thêm khách hàng mới thành công';
-			}
-			elseif ($status === 0)
-			{
-				$this->data['error_message'] = 'Không thể thêm khách hàng mới';
+				$this->data['error_message'] = 'Bạn vừa gửi yêu cầu đặt xe, hãy gửi tiếp yêu cầu khác sau 10s';
 			}
 			else
 			{
-				$this->data['error_message'] = 'Lỗi không rõ';
+				$customer_data	 = [
+					'booking_customer_phone'	 => $this->input->post('ci_form_booking_customer_phone'),
+					'booking_customer_gender'	 => $this->input->post('ci_form_booking_customer_gender'),
+					'booking_customer_name'		 => $this->input->post('ci_form_booking_customer_name'),
+					'booking_pickup_place'		 => $this->input->post('ci_form_booking_pickup_place'),
+					'booking_drop_place'		 => $this->input->post('ci_form_booking_drop_place'),
+					'booking_date'				 => date('c'),
+					'booking_note'				 => $this->input->post('ci_form_booking_note'),
+					'booking_status'			 => $this->session->userdata('customer_id') ? 1 : 0,
+					'booking_ip'				 => $this->input->ip_address()
+				];
+				$status			 = $this->_b->add($customer_data);
+
+				if ($status === 1)
+				{
+					$this->data['message'] = 'Xong! Chúng tôi sẽ liên hệ với bạn nhanh nhất có thể!';
+					$this->session->set_userdata('booking.timestamp', time());
+				}
+				else
+				{
+					$this->data['error_message'] = 'Có lỗi xảy ra!@#!@';
+				}
 			}
 		}
 		else
