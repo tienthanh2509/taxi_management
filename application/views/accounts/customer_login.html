@@ -17,7 +17,7 @@
 
 <body>
 	<div class="container" id="wrap">
-		<h4 class="text-center">Đăng nhập vào hệ thống.</h4>
+		<h4 class="text-center">Khách hàng đăng nhập.</h4>
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				<div id="validation-errors" style="display:none"></div>
@@ -26,22 +26,21 @@
 					<div class="panel-body" id="success">
 						<div class="row">
 							<div class="col-md-offset-1 col-md-8">
-								<form class="form-horizontal" action="{{ site_url('accounts/ajax_login') }}" method="post" id="login" role="form">
+								<form class="form-horizontal" action="{{ site_url('accounts/ajax_customer_login') }}" method="post" id="login" role="form">
 									<div class="form-group">
-										<label for="username" class="col-sm-4 control-label">Tên tài khoản</label>
+										<label for="ci_form_customer_phone" class="col-sm-4 control-label">Số điện thoại</label>
 										<div class="col-sm-8">
-											<input type="text" name="username" class="form-control" id="username" placeholder="Tên tài khoản">
+											<input type="text" name="ci_form_customer_phone" class="form-control" id="ci_form_customer_phone" placeholder="Số điện thoại">
 										</div>
 									</div>
 									<div class="form-group">
-										<label for="password" class="col-sm-4 control-label">Mật khẩu</label>
+										<label for="ci_form_customer_password" class="col-sm-4 control-label">Mật khẩu</label>
 										<div class="col-sm-8">
-											<input type="password" name="password" class="form-control" id="password" placeholder="Mật khẩu">
+											<input type="password" name="ci_form_customer_password" class="form-control" id="ci_form_customer_password" placeholder="Mật khẩu">
 										</div>
 									</div>
 									<div class="form-group">
 										<div class="col-sm-offset-4 col-sm-8">
-											<input type="hidden" name="role" value="{{ role }}">
 											<button data-loading-text="Đang xử lý..." type="submit" id="btn-login" class="btn btn-default btn-primary"><i class="fa fa-sign-in"></i> Đăng nhập</button>
 											<div class="pull-right">
 												<ul class="list-unstyled">
@@ -82,7 +81,7 @@
 					},
 					success: function(data) {
 						if (data.status === 1) {
-							$('#success').html('<div class="alert alert-success">Đăng nhập thành công! Hệ thống sẽ chuyển hướng bạn đến bảng điều khiển...<div>');
+							$('#success').html('<div class="alert alert-success">Đăng nhập thành công! Hệ thống sẽ chuyển hướng bạn về trang "{{ continue }}" ...<div>');
 							window.location.href = "{{ continue }}";
 						} else if(data.status === -1) {
 							$('#validation-errors').append('<div class="alert alert-danger"><strong>' + data.message + ' <span>Hãy đợi <i class="fa fa-circle-o-notch fa-spin"></i> <span id="secField">' + data.timeout + '</span> giây...</span></strong><div>');

@@ -40,6 +40,8 @@ class CI_D13HT01 extends CI_Controller {
 		$this->twig = new Twig();
 
 		$this->add_security_header();
+
+		$this->init_role();
 	}
 
 	protected function add_param()
@@ -81,6 +83,46 @@ class CI_D13HT01 extends CI_Controller {
 	function render($t)
 	{
 		$this->output->append_output($this->twig->render($t, $this->data));
+	}
+
+	private function init_role()
+	{
+		$segment = $this->uri->segment(1);
+
+		if ($segment == 'admin')
+		{
+			if ($this->session->userdata('user_role') != 'admin')
+			{
+				$this->__redirect_login('admin');
+			}
+		}
+		elseif ($segment == 'accountant')
+		{
+			if ($this->session->userdata('user_role') != 'accountant')
+			{
+				$this->__redirect_login('accountant');
+			}
+		}
+		elseif ($segment == 'driver')
+		{
+			if ($this->session->userdata('user_role') != 'driver')
+			{
+				$this->__redirect_login('driver');
+			}
+		}
+	}
+
+	/**
+	 * Chuyển hướng URL về trang đăng nhập
+	 * 
+	 * @param string $role
+	 * @param string $continue
+	 */
+	private function __redirect_login($role = 'guest', $continue = NULL)
+	{
+		$continue = !empty($continue) ? $continue : $this->config->site_url($this->uri->uri_string());
+
+		redirect('accounts/sign_in?role=' . $role . '&continue=' . urlencode($continue));
 	}
 
 }
