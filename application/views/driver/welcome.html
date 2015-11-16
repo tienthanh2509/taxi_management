@@ -1,0 +1,272 @@
+{#
+Chương trình quản lý Taxi
+Thiết kế bởi nhóm 1 lớp D13HT01
+Bao gồm các thành viên
+Hoàng Huy, Thái Sơn, Tiến Thành, Thanh Thúy, Thanh Vân
+#}
+
+{# Master Page #}
+{% extends 'master_page/masterpage_driver.html' %}
+
+{% block head %}{{ parent() }}
+<link href="{{ base_url('vendor/bower/html5-marquee/css/marquee.css') }}" rel="stylesheet">
+{% endblock %}
+
+{# Nội dung trang #}
+{% block body_content %}
+<div class="container-fluid">
+	<div id="ci_notice">
+		<span class="label label-warning"><i class="fa fa-bullhorn fa-fw"></i> <span id="ci_notice_text"></span></span>
+	</div>
+
+	<div class="row">
+		<div class="col-md-6">
+			<div id="ci_driver_customer_panel" class="panel panel-success">
+				<div class="panel-heading"><i class="fa fa-user fa-fw"></i> Khách hàng</div>
+				<div class="panel-body">
+					<form class="form-horizontal" method="post">
+						{% if message %}
+						<div class="alert alert-success" role="alert">
+							<span class="fa fa-exclamation-circle" aria-hidden="true"></span>
+							<span class="sr-only">Thông báo:</span>
+							{{ message|raw }}
+						</div>
+						{% endif %}
+						{% if error_message %}
+						<div class="alert alert-danger" role="alert">
+							<span class="fa fa-exclamation-circle" aria-hidden="true"></span>
+							<span class="sr-only">Lỗi:</span>
+							{{ error_message|raw }}
+						</div>
+						{% endif %}
+
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label for="ci_form_customer_id" class="col-sm-2 control-label">Mã KH <span class="text-danger">*</span></label>
+									<div class="col-sm-6">
+										<input type="text" class="form-control" id="ci_form_customer_id" name="ci_form_customer_id" value="{{ set_value('ci_form_customer_id') }}">
+										<p class="help-block">Nhập 1 để sử dụng tài khoản khách vãng lai</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-4">
+								
+							</div>
+							<div class="col-sm-8">
+								<button type="submit" class="btn btn-primary pull-right"><i class="fa fa-play fa-fw"></i> Bắt đầu hành trình</button>
+							</div>
+						</div>
+					</form>
+		
+					<!-- Bản đồ hiện tại -->
+					<div id="mapholder"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div id="ci_driver_task" class="panel panel-primary">
+				<div class="panel-heading"><i class="fa fa-tasks fa-fw"></i> Công việc</div>
+				<div class="panel-body">
+					<span id="ci_timer_text"></span>
+					<div class="progress">
+						<div id="ci_timer_process_bar" class="progress-bar progress-bar-success" role="progressbar" style="width: 100%"></div>
+					</div>
+					<div class="bs-callout bs-callout-info" id="callout-alerts-dismiss-plugin">
+						<h4>[1231] Nguyễn Văn A - 01234556677</h4>
+						<p>2015-11-16 13:42</p>
+						<a class="btn btn-primary pull-right"><i class="fa fa-exchange fa-fw"></i> Đón KH này</a>
+						<p>6 Trần Văn Ơn, TP.Thủ Dầu Một</p>
+					</div>
+				</div>
+			</div>
+
+			<div id="ci_driver_notice" class="panel panel-warning">
+				<div class="panel-heading"><i class="fa fa-bullhorn fa-fw"></i> Thông báo</div>
+				<!-- Table -->
+				<table class="table">
+					<caption>Lịch làm việc</caption>
+					<thead>
+						<th>Ngày</th>
+						<th class="text-center">Ca 1</th>
+						<th class="text-center">Ca 2</th>
+						<th class="text-center">Ca 3</th>
+						<th class="text-center">Ca 4</th>
+					<thead>
+					<tbody>
+						{% for day, details in schedule_list %}
+						<tr>
+							<th>{{ day }}</th>
+							{% for shift in details %}
+							{% if shift.flag and shift.note is empty %}
+							<td class="success text-center">
+								<a data-toggle="tooltip" data-placement="left" title="Bạn có lịch làm việc trong ca này!"><i class="fa fa-flag text-success"></i></a>
+							</td>
+							{% elseif shift.flag and shift.note is not empty %}
+							<td class="warning text-center">
+								<a data-toggle="tooltip" data-placement="left" title="{{ shift.note }}"><i class="fa fa-sticky-note text-danger"></i></a>
+							</td>
+							{% else %}
+							<td></td>
+							{% endif %}
+							{% endfor %}
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block footer %}{{ parent() }}
+<script src="{{ base_url('vendor/bower/typed.js/js/typed.js') }}"></script>
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<script>
+$(function(){
+	$("#ci_notice_text").typed({
+		strings: [
+			'Chào mừng bạn đến với phần mềm hỗ trợ quản lý Taxi!',
+			'Built with <i class="fa fa-heart text-danger"></i> by Hoàng Huy, Thái Sơn, <a href="https://github.com/tienthanh2509" target="_blank">Tiến Thành</a>, Thanh Thúy, Thanh Vân',
+			'Chúc bạn một ngày làm việc tốt lành!',
+		],
+		typeSpeed: 20,
+		//loop: true,
+		contentType: 'html'
+	});
+
+	// Kích hoạt tooltip
+	$('[data-toggle="tooltip"]').tooltip();
+});
+
+// --------------------------------------------------------------------------------------
+var time_remaining = {{ time_remaining > 0 ? time_remaining : 0 }};
+var timer_obj;
+
+$('#ci_timer_process_bar').addClass('progress-bar-striped');
+$('#ci_timer_process_bar').addClass('active');
+
+function set_process_bar(time_remaining)
+{
+	var hour = Math.floor((time_remaining/3600)%24);
+	var min = Math.floor((time_remaining%3600)/60);
+	var sec = Math.floor(time_remaining%60);
+	var per = (time_remaining/21600)*100;
+
+	if(hour > 0)
+		$('#ci_timer_text').html('Còn ' + hour + ' giờ ' + min + ' phút và ' + sec + ' giây.');
+	else if(min > 0)
+		$('#ci_timer_text').html('Còn ' + min + ' phút và ' + sec + ' giây.');
+	else
+		$('#ci_timer_text').html('Còn ' + sec + ' giây.');
+
+	$('#ci_timer_process_bar').css('width', per + '%');
+}
+
+function update_timer(time)
+{
+	if(time_remaining < 1)
+	{
+		clearInterval(timer_obj);
+		$('#ci_timer_process_bar').removeClass('progress-bar-striped');
+		$('#ci_timer_process_bar').removeClass('active');
+		return;
+	}
+
+	$('#ci_timer_process_bar').addClass('progress-bar-striped');
+	$('#ci_timer_process_bar').addClass('active');
+	set_process_bar(time);
+}
+
+if(time_remaining > 0)
+{
+	timer_obj = setInterval(function () {
+		update_timer(time_remaining);
+		time_remaining--;
+	}, 1000);
+}
+
+// --------------------------------------------------------------------------------------
+var x = document.getElementById('mapholder');
+
+function getLocation() {
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(showPosition, showError);
+	} else {
+		x.innerHTML = 'Geolocation is not supported by this browser.';
+	}
+}
+
+function showPosition(position) {
+	lat = position.coords.latitude;
+	lon = position.coords.longitude;
+
+	$.ajax({
+		type: 'get',
+		url: 'http://api.geonames.org/findNearbyStreetsOSMJSON',
+		cache: false,
+		dataType: 'json',
+		data: {
+			lat: lat,
+			lng: lon,
+			username: 'demo'
+		},
+		beforeSend: function() {
+
+		},
+		success: function(data) {
+			$.each(data.streetSegment, function(index, value) {
+				$('#ci_geo_location').append('<a href="#chon_vi_tri" data="' + value.name + '\'">' + value.name + '</a>, ');
+			});
+		},
+		error: function(xhr, textStatus, thrownError) {
+			
+		}
+	});
+
+	latlon = new google.maps.LatLng(lat, lon)
+	mapholder = document.getElementById('mapholder')
+	mapholder.style.height = '350px';
+	mapholder.style.width = '100%';
+
+	var myOptions = {
+		center: latlon,
+		zoom: 15,
+		mapTypeId: google.maps.MapTypeId.ROADMAP,
+		mapTypeControl: false,
+		navigationControlOptions: {
+			style: google.maps.NavigationControlStyle.SMALL
+		}
+	};
+	var map = new google.maps.Map(document.getElementById('mapholder'), myOptions);
+	var marker = new google.maps.Marker({
+		position: latlon,
+		map: map,
+		title: 'You are here!'
+	});
+}
+
+function showError(error) {
+	switch (error.code) {
+		case error.PERMISSION_DENIED:
+			x.innerHTML = 'Bạn đã từ chối sử dụng định vị!'
+			break;
+		case error.POSITION_UNAVAILABLE:
+			x.innerHTML = 'Thông tin vị trí không khả dụng vào lúc này.'
+			break;
+		case error.TIMEOUT:
+			x.innerHTML = 'Quá thời gian chờ vị trí.'
+			break;
+		case error.UNKNOWN_ERROR:
+			x.innerHTML = 'Đã xảy ra lỗi khi sử dụng dịch vụ định vị.'
+			break;
+	}
+}
+
+getLocation();
+</script>
+{% endblock %}
