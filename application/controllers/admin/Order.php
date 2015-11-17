@@ -42,6 +42,18 @@ class Order extends CI_D13HT01 {
 		$this->render('admin/order/welcome');
 	}
 
+	public function details($order_id = '')
+	{
+		$this->data['order'] = $this->_o->get_by_id($order_id);
+
+		if(!$this->data['order'])
+			show_error ('Không tìm thấy thông tin này!');
+
+		echo '<pre>';
+		print_r($this->data['order']);
+		echo '</pre>';
+	}
+
 	public function delete($order_id = '')
 	{
 		$this->_b->delete($order_id);

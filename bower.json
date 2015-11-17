@@ -30,6 +30,7 @@
     "jquery": "~2.1.4",
     "bootswatch": "~3.3.5",
     "html5-marquee": "~0.1.2",
-    "typed.js": "~1.1.1"
+    "typed.js": "~1.1.1",
+    "chart-beta": "http://canvasjs.com/fdm/chart-beta/"
   }
 }
