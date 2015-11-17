@@ -8,12 +8,15 @@
  */
 
 /**
- * Description of Stat
+ * Description of Welcome
  *
  * @author HuyDoan
  */
-class Stat extends CI_D13HT01_Accountant{
-	public function index(){
-		$this->render('accountant/stat/welcome');
+class Welcome extends CI_D13HT01 {
+
+	public function index()
+	{
+		$this->render('accountant/welcome');
 	}
+
 }

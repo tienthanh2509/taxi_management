@@ -33,16 +33,14 @@
 
     <body>
         <!-- Page head -->
-        {% block body_head %}{% include 'accountant/layout/body_head.html' %}{% endblock %}
+        {% block body_head %}{% include 'layout/body_head_accountant.html' %}{% endblock %}
         <!-- Page body -->
         {% block body_content %}{% endblock %}
         <!-- Page footer -->
-        {% block body_footer %}{% include 'accountant/layout/body_footer.html' %}{% endblock %}
+        {% block body_footer %}{% include 'layout/body_footer_accountant.html' %}{% endblock %}
 
         {% block footer %}<!-- Đặt load javascript ở cuối trang để tải trang nhanh hơn -->
-        <script type="text/javascript" src="{{ base_url('vendor/bower/jquery/dist/jquery.canvasjs.min.js') }}"></script>
         <script src="{{ base_url('vendor/bower/jquery/dist/jquery.min.js') }}"></script>
-        
         <script src="{{ base_url('vendor/bower/bootstrap/dist/js/bootstrap.min.js') }}"></script>{% endblock %}
         
     </body>

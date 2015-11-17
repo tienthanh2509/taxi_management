@@ -10,7 +10,73 @@ Hoàng Huy, Thái Sơn, Tiến Thành, Thanh Thúy, Thanh Vân
 
 {# Nội dung trang #}
 {% block body_content %}
+<div class="col-xs-10">
+    <div class="row">
+        <div class="col-xs-4">
+            <div id="chart-container-employee">
+            </div> 
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-xs-7">
+            <ul class="nav nav-tabs">
+                <h3>Thống kê chuyến đi</h3>
+                <li class="active"><a data-toggle="tab" href="#trips">Theo số lượng<br> chuyến đi</a></li>
+                <li><a data-toggle="tab" href="#price">Theo <br>tổng tiền</a></li>
+                <li><a data-toggle="tab" href="#km">Theo <br>tổng km</a></li>
+            </ul>
+            <div class="tab-content" style="height: 500px;width: 600px;">
+                <div id="trips" class="tab-pane fade in active">
 
+                </div>
+                <div id="price" class="tab-pane fade">
+
+                </div>
+                <div id="km" class="tab-pane fade">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-3">
+            <button type="button" class="btn btn-primary btn-lg">Hiện công ty có 200 xe</button>
+        </div>
+    </div>
+
+    <!--<div class="row">
+        <div class="col-xs-6">
+            <button type="button" class="btn btn-primary btn-lg">Hiện công ty có 200 xe</button> 
+        </div>
+        <div class="col-xs-6">
+            <div id="chart-container-employee"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-5">
+            <ul class="nav nav-tabs">
+                <h3>Thống kê chuyến đi</h3>
+                <li><a data-toggle="tab" href="#trips">Theo số lượng<br> chuyến đi</a></li>
+                <li><a data-toggle="tab" href="#price">Theo <br>tổng tiền</a></li>
+                <li><a data-toggle="tab" href="#km">Theo <br>tổng km</a></li>
+            </ul>
+    
+            <div class="tab-content">
+                <div id="trips" class="tab-pane fade">
+                    
+                </div>
+                <div id="price" class="tab-pane fade">
+                    
+                </div>
+                <div id="km" class="tab-pane fade">
+                    
+                </div>
+            </div>
+        </div>
+    </div>-->
+{% endblock %}
+
+{% block footer %}{{ parent() }}
+<script type="text/javascript" src="{{ base_url('vendor/bower/chart-beta/canvasjs.min.js') }}"></script>
 <script type="text/javascript">
     window.onload = function () {
         var chart1 = new CanvasJS.Chart("chart-container-employee",
@@ -139,67 +205,4 @@ Hoàng Huy, Thái Sơn, Tiến Thành, Thanh Thúy, Thanh Vân
 
 
 </script>
-<div class="col-xs-10">
-    <div class="row">
-        <div class="col-xs-4">
-            <div id="chart-container-employee">
-            </div> 
-        </div>
-        <div class="col-md-1"></div>
-        <div class="col-xs-7">
-            <ul class="nav nav-tabs">
-                <h3>Thống kê chuyến đi</h3>
-                <li class="active"><a data-toggle="tab" href="#trips">Theo số lượng<br> chuyến đi</a></li>
-                <li><a data-toggle="tab" href="#price">Theo <br>tổng tiền</a></li>
-                <li><a data-toggle="tab" href="#km">Theo <br>tổng km</a></li>
-            </ul>
-            <div class="tab-content" style="height: 500px;width: 600px;">
-                <div id="trips" class="tab-pane fade in active">
-
-                </div>
-                <div id="price" class="tab-pane fade">
-
-                </div>
-                <div id="km" class="tab-pane fade">
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-3">
-            <button type="button" class="btn btn-primary btn-lg">Hiện công ty có 200 xe</button>
-        </div>
-    </div>
-
-    <!--<div class="row">
-        <div class="col-xs-6">
-            <button type="button" class="btn btn-primary btn-lg">Hiện công ty có 200 xe</button> 
-        </div>
-        <div class="col-xs-6">
-            <div id="chart-container-employee"></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-5">
-            <ul class="nav nav-tabs">
-                <h3>Thống kê chuyến đi</h3>
-                <li><a data-toggle="tab" href="#trips">Theo số lượng<br> chuyến đi</a></li>
-                <li><a data-toggle="tab" href="#price">Theo <br>tổng tiền</a></li>
-                <li><a data-toggle="tab" href="#km">Theo <br>tổng km</a></li>
-            </ul>
-    
-            <div class="tab-content">
-                <div id="trips" class="tab-pane fade">
-                    
-                </div>
-                <div id="price" class="tab-pane fade">
-                    
-                </div>
-                <div id="km" class="tab-pane fade">
-                    
-                </div>
-            </div>
-        </div>
-    </div>-->
-    {% endblock %}
+{% endblock %}
