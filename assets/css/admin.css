@@ -106,3 +106,18 @@
 	height: 300px;
 	overflow-y: auto;
 }
+#ci_accountant_panel {
+	min-height: 200px;
+	height: 720px;
+	overflow-y: auto;
+}
+#ci_accountant_task {
+	min-height: 200px;
+	height: 400px;
+	overflow-y: auto;
+}
+#ci_accountant_notice {
+	min-height: 200px;
+	height: 300px;
+	overflow-y: auto;
+}

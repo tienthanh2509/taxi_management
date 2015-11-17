@@ -8,50 +8,47 @@ Hoàng Huy, Thái Sơn, Tiến Thành, Thanh Thúy, Thanh Vân
 {# Master Page #}
 {% extends 'master_page/masterpage_accountant.html' %}
 
+{% block head %}{{ parent() }}
+<link href="{{ base_url('vendor/bower/html5-marquee/css/marquee.css') }}" rel="stylesheet">
+{% endblock %}
+
 {# Nội dung trang #}
 {% block body_content %}
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-xs-2" id="leftCol">
-            <div class="sidebar-wrapper">
-                <ul class="nav nav-stacked" id="sidebar">
-                    <li role="presentation" class="active"><a href="#">Tổng quan</a></li>
-                    <li role="presentation"><a href="#">Nhân sự</a></li>
-                    <li role="presentation"><a href="#">Xe</a></li>
-                    <li role="presentation"><a href="#">Chuyến đi</a></li>
-                </ul>
-            </div>
-        </div>
-		<div class="col-xs-10">
-			<div class="row">
-				<div class="col-xs-4">
-					<div id="chart-container-employee">
-					</div> 
+	<div id="ci_notice">
+		<span class="label label-warning"><i class="fa fa-bullhorn fa-fw"></i> <span id="ci_notice_text"></span></span>
+	</div>
+
+	<div class="row">
+		<div class="col-md-6">
+			<div id="ci_accountant_panel" class="panel panel-success">
+				<div class="panel-heading"><i class="fa fa-user fa-fw"></i> Nhân viên</div>
+				<div class="panel-body">
+					<div id="chart_employee" style="height: 400px; width: 100%;"></div>
 				</div>
-				<div class="col-md-1"></div>
-				<div class="col-xs-7">
-					<ul class="nav nav-tabs">
-						<h3>Thống kê chuyến đi</h3>
-						<li class="active"><a data-toggle="tab" href="#trips">Theo số lượng<br> chuyến đi</a></li>
-						<li><a data-toggle="tab" href="#price">Theo <br>tổng tiền</a></li>
-						<li><a data-toggle="tab" href="#km">Theo <br>tổng km</a></li>
-					</ul>
-					<div class="tab-content" style="height: 500px;width: 600px;">
-						<div id="trips" class="tab-pane fade in active">
-
-						</div>
-						<div id="price" class="tab-pane fade">
-
-						</div>
-						<div id="km" class="tab-pane fade">
-
-						</div>
-					</div>
+				<div class="panel-heading"><i class="fa fa-map fa-fw"></i> Xe</div>
+				<div class="panel-body">
+					<div id="chart_car" style="height: 400px; width: 100%;"></div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-xs-3">
-					<button type="button" class="btn btn-primary btn-lg">Hiện công ty có 200 xe</button>
+		</div>
+
+		<div class="col-md-6">
+			<div id="ci_accountant_task" class="panel panel-primary">
+				<div class="panel-heading"><i class="fa fa-tasks fa-fw"></i> Tình hình tài chính</div>
+				<div class="panel-body">
+					<div id="chart_budget" style="height: 400px; width: 100%;"></div>
+				</div>
+				<div class="panel-heading"><i class="fa fa-tasks fa-fw"></i> Lượt đặt xe qua mạng</div>
+				<div class="panel-body">
+					<div id="chart_booking" style="height: 400px; width: 100%;"></div>
+				</div>
+			</div>
+
+			<div id="ci_accountant_notice" class="panel panel-warning">
+				<div class="panel-heading"><i class="fa fa-bullhorn fa-fw"></i> Thông báo</div>
+				<div class="panel-body">
+					
 				</div>
 			</div>
 		</div>
@@ -60,131 +57,123 @@ Hoàng Huy, Thái Sơn, Tiến Thành, Thanh Thúy, Thanh Vân
 {% endblock %}
 
 {% block footer %}{{ parent() }}
+<script src="{{ base_url('vendor/bower/typed.js/js/typed.js') }}"></script>
 <script type="text/javascript" src="{{ base_url('vendor/bower/chart-beta/canvasjs.min.js') }}"></script>
-<script type="text/javascript">
-$(function() {
-	var chart1 = new CanvasJS.Chart('chart-container-employee',
-			{
-				title: {
-					text: 'Nhân sự',
-					fontFamily: 'Time new Roman'
-				},
-				animationEnabled: true,
-				legend: {
-					verticalAlign: 'bottom',
-					horizontalAlign: 'center'
-				},
-				theme: 'theme1',
-				data: [
-					{
-						type: 'pie',
-						indexLabelFontFamily: 'Time new Roman',
-						indexLabelFontSize: 20,
-						indexLabelFontWeight: 'bold',
-						startAngle: 0,
-						indexLabelFontColor: 'MistyRose',
-						indexLabelLineColor: 'darkgrey',
-						indexLabelPlacement: 'inside',
-						/*toolTipContent: '{name}: {y}hrs',*/
-						showInLegend: true,
-						indexLabel: '#percent%',
-						dataPoints: [
-							{y: 52, name: 'Tài xế', legendMarkerType: 'triangle'},
-							{y: 44, name: 'Kế toán', legendMarkerType: 'square'},
-						]
-					}
-				]
-			});
-	//Better to construct options first and then pass it as a parameter
-	var trips = new CanvasJS.Chart('trips', {
-		title: {
-			text: 'Biểu đồ thể hiện số lượng chuyến đi'
-		},
-		animationEnabled: true,
-		data: [
-			{
-				type: 'spline', //change it to line, area, bar, pie, etc
-				dataPoints: [
-					{y: 10},
-					{y: 6},
-					{y: 14},
-					{y: 12},
-					{y: 19},
-					{y: 14},
-					{y: 26},
-					{y: 10},
-					{y: 22}
-				]
-			}
+<script>
+$(function(){
+	$("#ci_notice_text").typed({
+		strings: [
+			'Chào mừng bạn đến với phần mềm hỗ trợ quản lý Taxi!',
+			'Built with <i class="fa fa-heart text-danger"></i> by Hoàng Huy, Thái Sơn, <a href="https://github.com/tienthanh2509" target="_blank">Tiến Thành</a>, Thanh Thúy, Thanh Vân',
+			'Chúc bạn một ngày làm việc tốt lành!',
 		],
-		axisX: {
-			labelFontSize: 14
-		},
-		axisY: {
-			labelFontSize: 14
-		}
+		typeSpeed: 20,
+		//loop: true,
+		contentType: 'html'
 	});
-	
-	var km = new CanvasJS.Chart('km', {
-		title: {
-			text: 'Biểu đồ thể hiện tổng số km'
-		},
-		data: [
-			{
-				type: 'spline', //change it to line, area, bar, pie, etc
-				dataPoints: [
-					{y: 10},
-					{y: 6},
-					{y: 14},
-					{y: 12},
-					{y: 19},
-					{y: 14},
-					{y: 26},
-					{y: 10},
-					{y: 22}
-				]
-			}
-		],
-		axisX: {
-			labelFontSize: 14
-		},
-		axisY: {
-			labelFontSize: 14
-		}
-	});
-	var price = new CanvasJS.Chart('price', {
-		title: {
-			text: 'Biểu đồ thể hiện tổng tiền chuyến đi'
-		},
-		data: [
-			{
-				type: 'spline', //change it to line, area, bar, pie, etc
-				dataPoints: [
-					{y: 10},
-					{y: 6},
-					{y: 14},
-					{y: 12},
-					{y: 19},
-					{y: 14},
-					{y: 26},
-					{y: 10},
-					{y: 22}
-				]
-			}
-		],
-		axisX: {
-			labelFontSize: 14
-		},
-		axisY: {
-			labelFontSize: 14
-		}
-	});
-	price.render();
-	km.render();
-	
-	trips.render();
-	chart1.render();
 
+	// Kích hoạt tooltip
+	$('[data-toggle="tooltip"]').tooltip();
+
+	var employee = new CanvasJS.Chart('chart_employee', {
+		title: {
+			text: 'Nhân sự',
+			fontFamily: 'Time new Roman'
+		},
+		data: [{       
+			type: 'pie',
+			showInLegend: true,
+			legendText: '{indexLabel}',
+			indexLabelFontFamily: 'Time new Roman',
+			indexLabelFontSize: 12,
+			indexLabelFontWeight: 'bold',
+			indexLabelFontColor: 'MistyRose',
+			indexLabelLineColor: 'darkgrey',
+			indexLabelPlacement: 'inside',
+			indexLabel: '#percent%',
+			dataPoints: [
+				{% for c in view_stat_groups_users %}
+				{y: {{ c.total }}, indexLabel: '{{ c.group_name }}'},
+				{% endfor %}
+			]
+		}]
+	});
+	employee.render();
+
+	var car = new CanvasJS.Chart('chart_car', {
+		title: {
+			text: 'Xe',
+			fontFamily: 'Time new Roman'
+		},
+		data: [{       
+			type: 'pie',
+			showInLegend: true,
+			legendText: '{indexLabel}',
+			indexLabelFontFamily: 'Time new Roman',
+			indexLabelFontSize: 12,
+			indexLabelFontWeight: 'bold',
+			indexLabelFontColor: 'MistyRose',
+			indexLabelLineColor: 'darkgrey',
+			indexLabelPlacement: 'inside',
+			indexLabel: '#percent%',
+			dataPoints: [
+				{% for c in view_stat_car %}
+				{y: {{ c.total }}, indexLabel: '{{ c.model_name }}'},
+				{% endfor %}
+			]
+		}]
+	});
+	car.render();
+
+	var budget = new CanvasJS.Chart('chart_budget', {
+		title:{
+			text: 'Doanh thu theo tháng'
+		},
+		axisX: {
+			valueFormatString: 'MM-YYYY',
+			interval:1,
+			intervalType: 'month'
+		},
+		axisY:{
+			includeZero: false
+		},
+		data: [{
+			type: 'line',
+
+			dataPoints: [
+				{% for c in stat_order %}
+				{ x: new Date({{ c.year }}, {{ c.month-1 }}, 1), y: {{ c.total }} },
+				{% endfor %}
+			]
+		}]
+    });
+    budget.render();
+
+	var booking = new CanvasJS.Chart('chart_booking', {
+		title: {
+			text: 'Đặt xe'
+		},
+		zoomEnabled: true,
+		axisY: {
+			includeZero: false,
+			title: 'Lượt'
+		},
+		axisX: {
+			interval: 2,
+			intervalType: 'day',
+			valueFormatString: 'DD-MM-YYYY',
+			labelAngle: -45
+		},
+		data: [{
+			type: 'stepLine',
+			dataPoints: [
+				{% for c in stat_booking %}
+				{ x: new Date({{ c.year }}, {{ c.month-1 }}, {{ c.day }}), y: {{ c.total }} },
+				{% endfor %}
+			]
+		}]
+	});
+	booking.render();
 });
 </script>
 {% endblock %}
