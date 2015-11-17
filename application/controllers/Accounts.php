@@ -49,14 +49,7 @@ class Accounts extends CI_D13HT01 {
 		$login_attempts_timestamp	 = (int) $this->session->userdata('accounts.login.attempts.countdown') ? $this->session->userdata('accounts.login.attempts.countdown') : 0;
 		$login_attempts_countdown	 = (30 * 60) - (time() - $login_attempts_timestamp);
 
-		if ($this->session->userdata('user_name'))
-		{
-			$response = [
-				'status'	 => 1,
-				'message'	 => 'Đăng nhập thành công!'
-			];
-		}
-		elseif ($login_attempts > 3 && $login_attempts_countdown > 0)
+		if ($login_attempts > 3 && $login_attempts_countdown > 0)
 		{
 			$response = [
 				'status'	 => -1,

@@ -1,0 +1,79 @@
+{#
+Chương trình quản lý Taxi
+Thiết kế bởi nhóm 1 lớp D13HT01
+Bao gồm các thành viên
+Hoàng Huy, Thái Sơn, Tiến Thành, Thanh Thúy, Thanh Vân
+#}
+
+{# Master Page #}
+{% extends 'master_page/masterpage_admin.html' %}
+
+{# Nội dung trang #}
+{% block body_content %}
+<div class="container-fluid">
+	<!-- Stack the columns on mobile by making one half-width and the other full-width -->
+	<div class="row">
+		<div class="col-xs-3 col-md-3">
+			{% include 'admin/sidebar-left.html' %}
+		</div>
+		<div class="col-xs-9 col-md-9">
+			<h4>Danh sách hóa đơn của khách hàng</h4>
+			<div class="pull-right">{{ pagination|raw }}</div>
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>Số hiệu</th>
+						<th>Tên KH</th>
+						<th>Quãng đường</th>
+						<th>Thành tiền</th>
+						<th>Thời gian</th>
+						<th>Thao tác</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for m in order_list %}
+					<tr>
+						<th scope="row">{{ m.order_id }}</th>
+						<td>{{ m.customer_name }}</td>
+						<td>{{ m.trip_distance }}</td>
+						<td>{{ m.order_price|number_format(2, '.', ',') }} VNĐ</td>
+						<td>{{ m.order_date }}</td>
+						<td>
+							<a href="{{ site_url('admin/order/details/' ~ m.order_id) }}">Chi tiết</a>
+							<a href="#" onclick="trip_delete('{{ m.order_id }}');">Xóa</a>
+						</td>
+					</tr>
+					{% else %}
+					<tr>
+						<td colspan="6"><p class="text-center">Không có dữ liệu!</p></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+			{{ pagination|raw }}
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block footer %}{{ parent() }}
+<script>
+$(function () {
+	// Cập nhật Navbar
+	var navbar_id = 'order';
+	var navbar_pills_id = 'customer';
+	$('#ci_navbar_home').removeClass('active');
+	$('#ci_navbar_' + navbar_id).addClass('active');
+	$('#ci_collapse_' + navbar_pills_id).collapse('show');
+});
+
+function trip_delete(trip_id) {
+	var result = confirm('Bạn có chắc muốn xóa hóa đơn số "' + trip_id + '" không?');
+	if (result) {
+		window.location.href = "{{ site_url('admin/order/delete') }}/" + trip_id;
+	}
+}
+
+</script>
+{% endblock %}
