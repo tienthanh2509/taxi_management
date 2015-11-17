@@ -89,7 +89,11 @@ class CI_D13HT01 extends CI_Controller {
 	{
 		$segment = $this->uri->segment(1);
 
-		if ($segment == 'admin')
+		if ($this->session->userdata('user_role') == 'admin')
+		{
+			return;
+		}
+		elseif ($segment == 'admin')
 		{
 			if ($this->session->userdata('user_role') != 'admin')
 			{
