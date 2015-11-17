@@ -62,131 +62,129 @@ Hoàng Huy, Thái Sơn, Tiến Thành, Thanh Thúy, Thanh Vân
 {% block footer %}{{ parent() }}
 <script type="text/javascript" src="{{ base_url('vendor/bower/chart-beta/canvasjs.min.js') }}"></script>
 <script type="text/javascript">
-    window.onload = function () {
-        var chart1 = new CanvasJS.Chart("chart-container-employee",
-                {
-                    title: {
-                        text: "Nhân sự",
-                        fontFamily: "Time new Roman"
-                    },
-                    animationEnabled: true,
-                    legend: {
-                        verticalAlign: "bottom",
-                        horizontalAlign: "center"
-                    },
-                    theme: "theme1",
-                    data: [
-                        {
-                            type: "pie",
-                            indexLabelFontFamily: "Garamond",
-                            indexLabelFontSize: 20,
-                            indexLabelFontWeight: "bold",
-                            startAngle: 0,
-                            indexLabelFontColor: "MistyRose",
-                            indexLabelLineColor: "darkgrey",
-                            indexLabelPlacement: "inside",
-                            /*toolTipContent: "{name}: {y}hrs",*/
-                            showInLegend: true,
-                            indexLabel: "#percent%",
-                            dataPoints: [
-                                {y: 52, name: "Tài xế", legendMarkerType: "triangle"},
-                                {y: 44, name: "Kế toán", legendMarkerType: "square"},
-                            ]
-                        }
-                    ]
-                });
-        //Better to construct options first and then pass it as a parameter
-        var trips = new CanvasJS.Chart("trips", {
-            title: {
-                text: "Biểu đồ thể hiện số lượng chuyến đi"
-            },
-            animationEnabled: true,
-            data: [
-                {
-                    type: "spline", //change it to line, area, bar, pie, etc
-                    dataPoints: [
-                        {y: 10},
-                        {y: 6},
-                        {y: 14},
-                        {y: 12},
-                        {y: 19},
-                        {y: 14},
-                        {y: 26},
-                        {y: 10},
-                        {y: 22}
-                    ]
-                }
-            ],
-            axisX: {
-                labelFontSize: 14
-            },
-            axisY: {
-                labelFontSize: 14
-            }
-        });
-        
-        var km = new CanvasJS.Chart("km", {
-            title: {
-                text: "Biểu đồ thể hiện tổng số km"
-            },
-            data: [
-                {
-                    type: "spline", //change it to line, area, bar, pie, etc
-                    dataPoints: [
-                        {y: 10},
-                        {y: 6},
-                        {y: 14},
-                        {y: 12},
-                        {y: 19},
-                        {y: 14},
-                        {y: 26},
-                        {y: 10},
-                        {y: 22}
-                    ]
-                }
-            ],
-            axisX: {
-                labelFontSize: 14
-            },
-            axisY: {
-                labelFontSize: 14
-            }
-        });
-        var price = new CanvasJS.Chart("price", {
-            title: {
-                text: "Biểu đồ thể hiện tổng tiền chuyến đi"
-            },
-            data: [
-                {
-                    type: "spline", //change it to line, area, bar, pie, etc
-                    dataPoints: [
-                        {y: 10},
-                        {y: 6},
-                        {y: 14},
-                        {y: 12},
-                        {y: 19},
-                        {y: 14},
-                        {y: 26},
-                        {y: 10},
-                        {y: 22}
-                    ]
-                }
-            ],
-            axisX: {
-                labelFontSize: 14
-            },
-            axisY: {
-                labelFontSize: 14
-            }
-        });
-        price.render();
-        km.render();
-        
-        trips.render();
-        chart1.render();
+$(function() {
+	var chart1 = new CanvasJS.Chart('chart-container-employee',
+			{
+				title: {
+					text: 'Nhân sự',
+					fontFamily: 'Time new Roman'
+				},
+				animationEnabled: true,
+				legend: {
+					verticalAlign: 'bottom',
+					horizontalAlign: 'center'
+				},
+				theme: 'theme1',
+				data: [
+					{
+						type: 'pie',
+						indexLabelFontFamily: 'Time new Roman',
+						indexLabelFontSize: 20,
+						indexLabelFontWeight: 'bold',
+						startAngle: 0,
+						indexLabelFontColor: 'MistyRose',
+						indexLabelLineColor: 'darkgrey',
+						indexLabelPlacement: 'inside',
+						/*toolTipContent: '{name}: {y}hrs',*/
+						showInLegend: true,
+						indexLabel: '#percent%',
+						dataPoints: [
+							{y: 52, name: 'Tài xế', legendMarkerType: 'triangle'},
+							{y: 44, name: 'Kế toán', legendMarkerType: 'square'},
+						]
+					}
+				]
+			});
+	//Better to construct options first and then pass it as a parameter
+	var trips = new CanvasJS.Chart('trips', {
+		title: {
+			text: 'Biểu đồ thể hiện số lượng chuyến đi'
+		},
+		animationEnabled: true,
+		data: [
+			{
+				type: 'spline', //change it to line, area, bar, pie, etc
+				dataPoints: [
+					{y: 10},
+					{y: 6},
+					{y: 14},
+					{y: 12},
+					{y: 19},
+					{y: 14},
+					{y: 26},
+					{y: 10},
+					{y: 22}
+				]
+			}
+		],
+		axisX: {
+			labelFontSize: 14
+		},
+		axisY: {
+			labelFontSize: 14
+		}
+	});
+	
+	var km = new CanvasJS.Chart('km', {
+		title: {
+			text: 'Biểu đồ thể hiện tổng số km'
+		},
+		data: [
+			{
+				type: 'spline', //change it to line, area, bar, pie, etc
+				dataPoints: [
+					{y: 10},
+					{y: 6},
+					{y: 14},
+					{y: 12},
+					{y: 19},
+					{y: 14},
+					{y: 26},
+					{y: 10},
+					{y: 22}
+				]
+			}
+		],
+		axisX: {
+			labelFontSize: 14
+		},
+		axisY: {
+			labelFontSize: 14
+		}
+	});
+	var price = new CanvasJS.Chart('price', {
+		title: {
+			text: 'Biểu đồ thể hiện tổng tiền chuyến đi'
+		},
+		data: [
+			{
+				type: 'spline', //change it to line, area, bar, pie, etc
+				dataPoints: [
+					{y: 10},
+					{y: 6},
+					{y: 14},
+					{y: 12},
+					{y: 19},
+					{y: 14},
+					{y: 26},
+					{y: 10},
+					{y: 22}
+				]
+			}
+		],
+		axisX: {
+			labelFontSize: 14
+		},
+		axisY: {
+			labelFontSize: 14
+		}
+	});
+	price.render();
+	km.render();
+	
+	trips.render();
+	chart1.render();
 
-    };
-
-
+});
 </script>
 {% endblock %}
